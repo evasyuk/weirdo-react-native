@@ -56,6 +56,21 @@ const getTitle = (operation: OperationType) => {
 
 const onLeft = (operation) => (props) => <List.Icon {...props} icon={getIcon(operation)} />
 
+const inputFormatter = (text) => {
+  const number = Number.parseInt(text, 10)
+
+  if (isNaN(number)) {
+    return '0'
+  }
+
+  if (number >= 100) {
+    return '99'
+  }
+
+  return `${number}`
+}
+
+
 export const CalculationView = () => {
   const [operandA, setOperandA] = useState("0");
   const [operandB, setOperandB] = useState("0");
@@ -89,7 +104,7 @@ export const CalculationView = () => {
           label="Operand A"
           value={operandA}
           keyboardType='numeric'
-          onChangeText={(text) => setOperandA(text)}
+          onChangeText={(text) => setOperandA(inputFormatter(text))}
         />
         <Spacer size={10} />
         <List.Accordion
@@ -106,7 +121,7 @@ export const CalculationView = () => {
         <TextInput
           label="Operand B"
           value={operandB}
-          onChangeText={(text) => setOperandB(text)}
+          onChangeText={(text) => setOperandB(inputFormatter(text))}
         />
         <Spacer size={20} />
         <Row>
