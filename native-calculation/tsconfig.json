@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noUnusedParameters": true,
+    "baseUrl": "./",
+    "paths": {
+      "@weirdo/*": [
+        "modules/*",
+        "packages/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "*/**/__tests__",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.e2e.ts",
+  ]
+}
