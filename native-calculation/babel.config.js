@@ -1,6 +1,11 @@
 module.exports = function(api) {
   api.cache(true)
   return {
+    // env: {
+    //   production: {
+    //     plugins: ['react-native-paper/babel'],
+    //   },
+    // },
     presets: [['module:metro-react-native-babel-preset', { useTransformReactJSXExperimental: true }]],
     plugins: [
       [
@@ -19,6 +24,7 @@ module.exports = function(api) {
           runtime: 'automatic',
         },
       ],
+      'react-native-paper/babel',
     ],
   }
 }
