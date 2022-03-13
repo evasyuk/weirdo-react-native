@@ -5,22 +5,8 @@ import { GeneralText } from "@weirdo/ui-module/GeneralText";
 import { GeneralLayout } from "@weirdo/ui-module/GeneralLayout";
 import { Spacer } from "@weirdo/ui-module/Spacer";
 import { Row } from "@weirdo/ui-module/Row";
-
-type OperationType = '+' | '-' | '*' | '/'
-
-const performCalculation = (operation: OperationType, operandA: number, operandB: number): number => {
-  if (operation === '+') {
-    return operandA + operandB
-  } else if (operation === '-') {
-    return operandA - operandB
-  } else if (operation === '*') {
-    return operandA * operandB
-  } else if (operation === '/') {
-    return operandA / operandB
-  } else {
-    throw Error('unexpected operation: ' + operation)
-  }
-}
+import { OperationType } from "@weirdo/types";
+import { performNativeCalculation } from "@weirdo/calculations/CalculationHelper";
 
 const getIcon = (operation: OperationType) => {
   if (operation === '*') {
@@ -82,12 +68,19 @@ export const CalculationView = () => {
   const handlePress = () => setExpanded(!expanded);
 
   useEffect(() => {
-    setCalculationResult(
-      performCalculation(
-        operation,
-        Number.parseInt(operandA, 10),
-        Number.parseInt(operandB, 10)),
+    performNativeCalculation(
+      operation,
+      Number.parseInt(operandA, 10),
+      Number.parseInt(operandB, 10),
     )
+      .then((nativeResult: number | "NaN") => {
+        if (nativeResult !== "NaN") {
+          setCalculationResult(nativeResult)
+        } else {
+          setCalculationResult(Number.NaN)
+        }
+      })
+      .catch((err) => console.log('nativeResultError', err))
   }, [operation, operandA, operandB])
 
   const onClick = (operation) => () => {
