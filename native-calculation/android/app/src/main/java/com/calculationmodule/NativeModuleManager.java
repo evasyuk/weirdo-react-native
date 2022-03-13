@@ -31,8 +31,9 @@ public class NativeModuleManager extends ReactContextBaseJavaModule {
         } else if ("/".equals(operation)) {
             if (operandB == 0) {
                 callback.invoke(null, "NaN");
+            } else {
+                callback.invoke(null, operandA / operandB);
             }
-            callback.invoke(null, operandA / operandB);
         }
     }
 }
