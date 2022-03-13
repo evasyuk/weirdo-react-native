@@ -1,19 +1,19 @@
 import { NativeModules } from 'react-native';
 import { OperationType } from "@weirdo/types";
 
-const { ReactOneCustomMethod } = NativeModules;
+const { NativeModuleManager } = NativeModules;
 
-type ReactOneCustomMethod = (operation: OperationType, operandA: number, operandB: number) => Promise<number>
+console.log('NativeModuleManager', NativeModules.NativeModuleManager)
 
-export const performNativeCalculation: ReactOneCustomMethod =
-  async (operation: OperationType, operandA: number, operandB: number): Promise<number> => {
-    return ReactOneCustomMethod.performCalculation(operation, operandA, operandB)
-      .then((nativeResult: number | "NaN") => {
-        console.log('nativeResult', nativeResult)
+type CalculationFuncType = (operation: OperationType, operandA: number, operandB: number) => Promise<number>
 
-        return nativeResult
+export const performNativeCalculation: CalculationFuncType =
+  async (operation: OperationType, operandA: number, operandB: number): Promise<any> => {
+    return new Promise((acc) => {
+      NativeModuleManager.performCalculation(operation, operandA, operandB, (err: any, nativeResult: number | "NaN") => {
+        console.log('nativeResult', err, nativeResult)
+
+        acc(nativeResult)
       })
-      .catch((err: any) => {
-        console.error(err);
-      });
+    })
   }

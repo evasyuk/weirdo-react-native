@@ -74,6 +74,8 @@ export const CalculationView = () => {
       Number.parseInt(operandB, 10),
     )
       .then((nativeResult: number | "NaN") => {
+        console.log('??', nativeResult)
+
         if (nativeResult !== "NaN") {
           setCalculationResult(nativeResult)
         } else {
@@ -116,9 +118,15 @@ export const CalculationView = () => {
           value={operandB}
           onChangeText={(text) => setOperandB(inputFormatter(text))}
         />
-        <Spacer size={20} />
+        <Spacer size={40} />
         <Row>
-          <GeneralText>CalculationResult:</GeneralText>
+          <GeneralText>{`${operandA}`}</GeneralText>
+          <Spacer size={10} />
+          <GeneralText>{`${operation}`}</GeneralText>
+          <Spacer size={10} />
+          <GeneralText>{`${operandB}`}</GeneralText>
+          <Spacer size={10} />
+          <GeneralText>=</GeneralText>
           <Spacer size={10} />
           <GeneralText>{`${calculationResult}`}</GeneralText>
         </Row>
