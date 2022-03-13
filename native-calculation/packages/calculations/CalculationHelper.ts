@@ -3,8 +3,6 @@ import { OperationType } from "@weirdo/types";
 
 const { NativeModuleManager } = NativeModules;
 
-console.log('NativeModuleManager', NativeModules.NativeModuleManager)
-
 type CalculationFuncType = (operation: OperationType, operandA: number, operandB: number) => Promise<number>
 
 export const performNativeCalculation: CalculationFuncType =

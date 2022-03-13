@@ -74,8 +74,6 @@ export const CalculationView = () => {
       Number.parseInt(operandB, 10),
     )
       .then((nativeResult: number | "NaN") => {
-        console.log('??', nativeResult)
-
         if (nativeResult !== "NaN") {
           setCalculationResult(nativeResult)
         } else {
